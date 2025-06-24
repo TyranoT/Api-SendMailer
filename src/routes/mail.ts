@@ -1,11 +1,13 @@
 import { FastifyInstance } from 'fastify';
 import { transporter } from '../utils/mail';
 import { readFileSync } from 'fs';
+import path from 'path';
 
 export async function mailRoutes(server: FastifyInstance) {
     server.post('/send-email', async (request, reply) => {
 
-        const meuHtml = readFileSync('/src/routes/templates/mail.html', 'utf-8');
+        const htmlPath = path.join(__dirname, 'templates', 'mail.html');
+        const meuHtml = readFileSync(htmlPath, 'utf-8');
 
         try {
             const info = await transporter.sendMail({
