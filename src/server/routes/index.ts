@@ -3,7 +3,7 @@ import { Avisos } from "../controllers";
 
 const router = Router();
 
-router.get('/api', (req: Request, res: Response) => { res.send('Hello World'); });
-router.post("/api/aviso", Avisos.enviar);
+router.get('/', (req: Request, res: Response) => { res.send('Hello World'); });
+router.post("/aviso", Avisos.enviar);
 
 export { router };
