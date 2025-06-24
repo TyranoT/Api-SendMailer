@@ -1,19 +1,25 @@
-import Fastify from 'fastify';
-import cors from '@fastify/cors';
-import { mailRoutes } from './routes/mail';
+import fastify from "fastify";
+import cors from "@fastify/cors";
+import { mailRoutes } from "./routes/mail";
 
-const server = Fastify();
+const app = fastify({ logger: true });
 
-server.register(cors, {
-  origin: '*'
+app.register(cors, { origin: "*" });
+
+app.register(mailRoutes);
+
+app.get("/", async (request, reply) => {
+  return { message: "🚀 Api Fastify Está Rodando! Ok" };
 });
 
-server.register(mailRoutes, { prefix: '/api' });
-
-server.listen({ port: 3333 }, (err, address) => {
-  if (err) {
-    console.error(err);
+const start = async () => {
+  try {
+    await app.listen({ port: 3000 });
+    console.log("🚀 Servidor rodando em http://localhost:3000");
+  } catch (error) {
+    app.log.error(error);
     process.exit(1);
   }
-  console.log(`Server running at ${address}`);
-});
+};
+
+start();
