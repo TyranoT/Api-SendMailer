@@ -8,7 +8,7 @@ app.register(cors, { origin: "*" });
 
 app.register(mailRoutes);
 
-app.get("/", async (request, reply) => {
+app.get("/", async () => {
   return { message: "🚀 Api Fastify Está Rodando! Ok" };
 });
 
